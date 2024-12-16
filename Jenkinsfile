@@ -1,20 +1,16 @@
 pipeline {
-    agent any
+    agent {label 'ubuntu-slave'}
 
     stages {
-        stage('Hello') {
-            steps {
-                echo 'Hello World'
-            }
-        }
         stage('git') {
             steps {
-                git 'https://github.com/dayanandgowda222/mavenproject.git'
+                git branch: 'main', url: 'https://github.com/dayanandgowda222/java.git'
             }
         }
-        stage('test') {
+        stage('java') {
             steps {
-                bat 'mvn clean test'
+                sh '''javac demo.java
+                      java demo'''
             }
         }
     }
